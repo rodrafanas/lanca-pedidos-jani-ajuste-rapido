@@ -2,46 +2,86 @@ import streamlit as st
 from fpdf import FPDF
 import io
 
+# # Função para criar o PDF
+# def criar_pdf(dados):
+#     pdf = FPDF()
+#     pdf.add_page()
+#     pdf.set_font("Arial", size=14)
+    
+#     # Desenha a tabela para o pedido
+#     def desenha_tabela(y_inicio):
+#         pass
+    
+#     # Preenche os dados do pedido na tabela
+#     def preenche_dados(y_inicio, dados):
+#         pdf.set_xy(10, y_inicio + 5)
+#         for chave, valor in dados.items():
+#             pdf.cell(40, 10, f"{chave}: {valor}", 0, ln=True)
+#     ## primeira imagem
+#     ajuste = 25
+#     pdf.image('logo_jani_ajuste_rapido.jpg',10,ajuste,30)
+    
+#     # Primeiro pedido
+#     y_inicio = 20 + ajuste
+#     desenha_tabela(y_inicio)
+#     preenche_dados(y_inicio, dados)
+    
+#     # Linha pontilhada
+#     pdf.set_xy(10, y_inicio + 70)
+#     pdf.cell(190, 10, "", 0, 1, 'C')
+#     pdf.dashed_line(10, y_inicio + 75, 200, y_inicio + 75, dash_length=1, space_length=1)
+    
+#     ## primeira imagem
+#     pdf.image('logo_jani_ajuste_rapido.jpg', 10, y_inicio + 80, 30)
+    
+#     # Segundo pedido
+#     y_inicio += 105
+#     desenha_tabela(y_inicio)
+#     preenche_dados(y_inicio, dados)
+
+#     # Salva o PDF em um buffer de memória e retorna como uma string
+#     return pdf.output(dest='S').encode('latin1')
+
 # Função para criar o PDF
 def criar_pdf(dados):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=14)
-    
+    # Tamanho da página para uma impressora de 58 mm
+    pdf = FPDF(format='B6')
+
     # Desenha a tabela para o pedido
     def desenha_tabela(y_inicio):
+        # Aqui você pode desenhar a tabela conforme necessário
         pass
     
     # Preenche os dados do pedido na tabela
     def preenche_dados(y_inicio, dados):
-        pdf.set_xy(10, y_inicio + 5)
+        pdf.set_xy(5, y_inicio + 5)
         for chave, valor in dados.items():
-            pdf.cell(40, 10, f"{chave}: {valor}", 0, ln=True)
-    ## primeira imagem
-    ajuste = 25
-    pdf.image('logo_jani_ajuste_rapido.jpg',10,ajuste,30)
+            pdf.cell(50, 5, f"{chave}: {valor}", 0, ln=True)
     
+    # Primeira imagem
+    ajuste = 5
+    pdf.image('logo_jani_ajuste_rapido.jpg', 5, ajuste, 20)
+
     # Primeiro pedido
-    y_inicio = 20 + ajuste
+    y_inicio = 10 + ajuste
     desenha_tabela(y_inicio)
     preenche_dados(y_inicio, dados)
-    
+
     # Linha pontilhada
-    pdf.set_xy(10, y_inicio + 70)
-    pdf.cell(190, 10, "", 0, 1, 'C')
-    pdf.dashed_line(10, y_inicio + 75, 200, y_inicio + 75, dash_length=1, space_length=1)
-    
-    ## primeira imagem
-    pdf.image('logo_jani_ajuste_rapido.jpg', 10, y_inicio + 80, 30)
-    
+    pdf.set_xy(5, y_inicio + 40)
+    pdf.cell(50, 5, "", 0, 1, 'C')
+    pdf.dashed_line(5, y_inicio + 45, 55, y_inicio + 45, dash_length=1, space_length=1)
+
+    # Segunda imagem
+    pdf.image('logo_jani_ajuste_rapido.jpg', 5, y_inicio + 50, 20)
+
     # Segundo pedido
-    y_inicio += 105
+    y_inicio += 60
     desenha_tabela(y_inicio)
     preenche_dados(y_inicio, dados)
 
     # Salva o PDF em um buffer de memória e retorna como uma string
     return pdf.output(dest='S').encode('latin1')
-
 
 # Interface do Streamlit
 st.image('logo_jani_ajuste_rapido.jpg', width=200)
